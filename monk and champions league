@@ -1,0 +1,44 @@
+'''
+# Sample code to perform I/O:
+ 
+name = input()                  # Reading input from STDIN
+print('Hi, %s.' % name)         # Writing output to STDOUT
+ 
+# Warning: Printing unwanted or ill-formatted data to output will cause the test cases to fail
+'''
+ 
+# Write your code here
+def swap(blank_seats,largest,i):
+    blank_seats[largest],blank_seats[i]=blank_seats[i],blank_seats[largest]
+ 
+def max_heapify(blank_seats,i):
+    left=2*i+1
+    right=2*i+2
+    largest=0
+    if(left<N and blank_seats[left]>blank_seats[i]):
+        largest=left
+    else:
+        largest=i
+    if(right < N and blank_seats[right]>blank_seats[largest]):
+        largest=right
+    if(largest!=i):
+        swap(blank_seats,largest,i)
+        max_heapify(blank_seats,largest)
+ 
+def build_maxheap(blank_seats):
+    for x in range(N//2,-1,-1):
+        max_heapify(blank_seats,x)
+ 
+#blank_seats=[]
+N, no_of_people_in_queue = [int(x) for x in input().split()]
+blank_seats = list(map(int, input().split()))
+ 
+total_earning=0
+build_maxheap(blank_seats)
+for y in range(0,no_of_people_in_queue):
+    total_earning+=blank_seats[0]
+    blank_seats[0]=blank_seats[0]-1
+    max_heapify(blank_seats,0)
+ 
+print(total_earning)
+ 
